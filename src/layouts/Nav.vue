@@ -20,6 +20,7 @@
         </a>
         <button
           v-if="isAuthenticated"
+          @click="handleLogout"
           class="bg-gradient-to-r ml-2 from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
           type="button"
         >
@@ -34,16 +35,29 @@
 import { authStore } from "@/stores/authStore";
 import { defineComponent } from "vue";
 import { storeToRefs } from "pinia";
+import { removeCookie } from "@/service/cookieService.js";
+import httpService from "@/service/httpService.js";
+
 export default defineComponent({
   name: "Nav",
   setup() {
+    const store = authStore();
 
-    const store = authStore()
+    const { isAuthenticated } = storeToRefs(store);
 
+    const handleLogout = () => {
+      httpService.post("/auth/logout").then((e: any) => {
+        if (e.status === 200) {
+          removeCookie("token");
+          store.isAuthenticated = false
+        }
+      }).catch(e=>{
+        console.log("erro on token");
+        
+      });
+    };
 
-    const {isAuthenticated} = storeToRefs(store)
-
-    return {isAuthenticated}
+    return { isAuthenticated, handleLogout };
   },
 });
 </script>

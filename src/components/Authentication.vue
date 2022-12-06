@@ -45,8 +45,8 @@
 import { authStore } from "@/stores/authStore";
 import { defineComponent } from "vue";
 import { storeToRefs } from "pinia";
-import api from "@/libs/apiConfig.js";
-
+import { setCookie } from "@/service/cookieService.js";
+import httpService from "@/service/httpService.js";
 export default defineComponent({
   name: "Authentication",
   setup() {
@@ -55,26 +55,32 @@ export default defineComponent({
     const { email, password } = storeToRefs(store);
 
     const handleLogin = () => {
-      api
-        .post("/auth/login", { email: email.value, password: password.value })
-        .then((e: Response) => {
+      httpService
+        .post("/auth/login", {
+          email: email.value,
+          password: password.value,
+        })
+        .then((e: any) => {
           if (e.status === 200) {
-            store.setToken(e.data.token);
-            store.isAuthenticated = true;
+            setCookie("token", e.data.token);
+            store.setuserInfo(e.data.data);
           }
         });
     };
 
     const handleRegister = () => {
-      api
+
+      console.log(this);
+      
+      httpService
         .post("/auth/resgiter", {
           email: email.value,
           password: password.value,
         })
-        .then((e: Event) => {
+        .then((e: any) => {
           if (e.status === 201) {
-            store.setToken(e.data.token);
-            store.isAuthenticated = true;
+            setCookie("token", e.data.token);
+            store.setuserInfo(e.data.data);
           }
         });
     };
