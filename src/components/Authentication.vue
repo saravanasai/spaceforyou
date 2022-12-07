@@ -47,12 +47,18 @@ import { defineComponent } from "vue";
 import { storeToRefs } from "pinia";
 import { setCookie } from "@/service/cookieService.js";
 import httpService from "@/service/httpService.js";
+import { useRouter } from "vue-router";
+import { notify } from "@kyvg/vue3-notification";
 export default defineComponent({
   name: "Authentication",
   setup() {
     const store = authStore();
 
     const { email, password } = storeToRefs(store);
+    const router = useRouter();
+    const pushToDashboard = () => {
+      router.push({ name: "dashboard" });
+    };
 
     const handleLogin = () => {
       httpService
@@ -64,14 +70,17 @@ export default defineComponent({
           if (e.status === 200) {
             setCookie("token", e.data.token);
             store.setuserInfo(e.data.data);
+            notify({
+              title: "Authorization",
+              type:"success",
+              text: "You have been logged in!",
+            });
+            pushToDashboard();
           }
         });
     };
 
     const handleRegister = () => {
-
-      console.log(this);
-      
       httpService
         .post("/auth/resgiter", {
           email: email.value,
@@ -81,6 +90,12 @@ export default defineComponent({
           if (e.status === 201) {
             setCookie("token", e.data.token);
             store.setuserInfo(e.data.data);
+            notify({
+              title: "Authorization",
+              type:"success",
+              text: "You have been Registered!",
+            });
+            pushToDashboard();
           }
         });
     };

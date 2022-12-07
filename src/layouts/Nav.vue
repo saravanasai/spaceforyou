@@ -37,11 +37,18 @@ import { defineComponent } from "vue";
 import { storeToRefs } from "pinia";
 import { removeCookie } from "@/service/cookieService.js";
 import httpService from "@/service/httpService.js";
+import { useRouter } from "vue-router";
+import { notify } from "@kyvg/vue3-notification";
 
 export default defineComponent({
   name: "Nav",
   setup() {
     const store = authStore();
+    const router = useRouter();
+    
+    const pushToHomePage = () => {
+      router.push({ name: "home" });
+    };
 
     const { isAuthenticated } = storeToRefs(store);
 
@@ -50,6 +57,12 @@ export default defineComponent({
         if (e.status === 200) {
           removeCookie("token");
           store.isAuthenticated = false
+          notify({
+              title: "Logged Out",
+              type:"warn",
+              text: "You have been logged out!",
+            });
+          pushToHomePage()
         }
       }).catch(e=>{
         console.log("erro on token");

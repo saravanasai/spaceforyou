@@ -12,6 +12,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@kyvg/vue3-notification": "^2.7.0",
     "axios": "^1.2.0",
     "js-cookie": "^3.0.1",
     "pinia": "^2.0.26",
