@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full xl:w-2/5 p-12 overflow-hidden">
+  <div class="w-full xl:w-2/5 p-5 overflow-hidden">
     <Authentication />
   </div>
 </template>

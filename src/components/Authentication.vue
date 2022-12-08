@@ -1,6 +1,6 @@
 <template>
   <form
-    class="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4"
+    class="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-6 pt-6 pb-6 mb-1"
   >
     <div class="mb-4">
       <label class="block text-blue-300 py-2 font-bold mb-2" for="emailaddress">

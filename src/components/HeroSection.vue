@@ -1,9 +1,9 @@
 <template>
   <div
-    class="flex flex-col w-full xl:w-3/5 justify-center lg:items-start overflow-y-hidden"
+    class="flex flex-col w-full md:pt-36 xl:w-3/5 justify-center lg:items-start overflow-y-hidden"
   >
     <h1
-      class="my-4 text-3xl md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left"
+      class="text-3xl md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left"
     >
       Let's find you something to do
       <span

@@ -1,23 +1,26 @@
 <template>
   <div class="w-full container mx-auto">
     <div class="w-full flex items-center justify-between">
-      <a
+      <router-link
+        :to="{ name: 'home' }"
         class="m-3 flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
-        href="#"
       >
         Zero<span
           class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500"
           >Code</span
         >
-      </a>
+      </router-link>
 
       <div class="flex w-1/2 justify-end content-center">
-        <a
+        <router-link
+          v-if="isAuthenticated"
+          :to="{ name: 'dashboard' }"
           class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
           type="button"
         >
-          GitHub
-        </a>
+          Dashboard
+        </router-link>
+
         <button
           v-if="isAuthenticated"
           @click="handleLogout"
@@ -45,7 +48,7 @@ export default defineComponent({
   setup() {
     const store = authStore();
     const router = useRouter();
-    
+
     const pushToHomePage = () => {
       router.push({ name: "home" });
     };
@@ -53,21 +56,24 @@ export default defineComponent({
     const { isAuthenticated } = storeToRefs(store);
 
     const handleLogout = () => {
-      httpService.post("/auth/logout").then((e: any) => {
-        if (e.status === 200) {
-          removeCookie("token");
-          store.isAuthenticated = false
-          notify({
+      httpService
+        .post("/auth/logout")
+        .then((e: any) => {
+          if (e.status === 200) {
+            removeCookie("token");
+            store.isAuthenticated = false;
+            notify({
               title: "Logged Out",
-              type:"warn",
+              type: "warn",
               text: "You have been logged out!",
             });
-          pushToHomePage()
-        }
-      }).catch(e=>{
-        console.log("erro on token");
-        
-      });
+            pushToHomePage();
+          }
+        })
+        .catch((e) => {
+          console.log("erro on token");
+          removeCookie("token");
+        });
     };
 
     return { isAuthenticated, handleLogout };
