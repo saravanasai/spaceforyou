@@ -44,39 +44,24 @@
 </template>
 
 <script lang="ts">
-import { authStore } from "@/stores/authStore";
 import { defineComponent, onMounted, reactive, toRefs } from "vue";
 import httpService from "@/service/httpService.js";
 import { notify } from "@kyvg/vue3-notification";
+import type { AppTypeInterface } from "@/contracts/ProjectContract";
 
 export default defineComponent({
   name: "AddNewProjectComponent",
   setup() {
-    const store = authStore();
+   
 
     const state = reactive({
       projectName: "",
       projectType: "",
       description: "",
-      appTypes: [] as appTypeInterface[],
-      projectList: [] as projectDataInterface[],
+      appTypes: [] as AppTypeInterface[]
     });
 
-    interface appTypeInterface {
-      id: number;
-      name: string;
-      description: string;
-    }
-
-    interface projectDataInterface {
-      id: number;
-      name: string;
-      description: string;
-      application_key: string;
-      created_at: string;
-      app_info: appTypeInterface;
-    }
-
+    
     const handleCreateProject = () => {
       httpService
         .post("/projects", {
@@ -114,7 +99,7 @@ export default defineComponent({
     const getAppTypeList = () => {
       httpService.get("/app-types").then((e: any) => {
         if (e.status === 200) {
-          state.appTypes = e.data.data as appTypeInterface[];
+          state.appTypes = e.data.data as AppTypeInterface[];
         }
       });
     };
