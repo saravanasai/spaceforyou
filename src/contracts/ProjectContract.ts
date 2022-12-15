@@ -12,3 +12,10 @@ export interface ProjectDataInterface {
   created_at: string;
   app_info: AppTypeInterface;
 }
+
+export interface ProjectRequestDataInterface {
+  name: string;
+  app_type_id: number;
+  description: string;
+  
+}

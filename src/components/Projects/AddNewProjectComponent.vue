@@ -18,7 +18,7 @@
         v-model="projectType"
       >
         <option value="">Please choose</option>
-        <template v-for="types in appTypes" :key="types.id">
+        <template v-for="types in appStore.appTypeList" :key="types.id">
           <option :value="types.id">{{ types.name }}</option>
         </template>
       </select>
@@ -33,7 +33,7 @@
 
     <div class="flex items-center justify-end pt-4">
       <button
-        @click="handleCreateProject"
+        @click="handleCreate"
         class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
         type="button"
       >
@@ -47,46 +47,50 @@
 import { defineComponent, onMounted, reactive, toRefs } from "vue";
 import httpService from "@/service/httpService.js";
 import { notify } from "@kyvg/vue3-notification";
-import type { AppTypeInterface } from "@/contracts/ProjectContract";
+import type {
+  AppTypeInterface,
+  ProjectRequestDataInterface,
+} from "@/contracts/ProjectContract";
+import { projectStore } from "@/stores/projectStore";
+import { appTypeStore } from "@/stores/appTypeStore";
 
 export default defineComponent({
   name: "AddNewProjectComponent",
   setup() {
-   
-
+    const store = projectStore();
+    const appStore = appTypeStore();
     const state = reactive({
       projectName: "",
-      projectType: "",
+      projectType: 0,
       description: "",
-      appTypes: [] as AppTypeInterface[]
     });
 
-    
-    const handleCreateProject = () => {
-      httpService
-        .post("/projects", {
-          name: state.projectName,
-          description: state.description,
-          app_type_id: state.projectType,
-        })
+    const handleCreate = () => {
+      let data: ProjectRequestDataInterface = {
+        name: state.projectName,
+        description: state.description,
+        app_type_id: Number(state.projectType),
+      };
+
+      store
+        .handleCreateProject(data)
         .then((e: any) => {
           if (e.status === 201) {
             state.projectName = "";
             state.description = "";
-            state.projectType = "";
-
+            state.projectType = 0;
+            store.loadProjectList();
             notify({
               title: "New Project Created",
               type: "success",
               text: "Build Something!",
             });
-
           }
-        }).catch(e=>{
-            if(e.response.status===422)
-          {
+        })
+        .catch((e) => {
+          if (e.response.status === 422) {
             console.log(e);
-            
+
             notify({
               title: e.response.data.message,
               type: "warn",
@@ -96,19 +100,12 @@ export default defineComponent({
         });
     };
 
-    const getAppTypeList = () => {
-      httpService.get("/app-types").then((e: any) => {
-        if (e.status === 200) {
-          state.appTypes = e.data.data as AppTypeInterface[];
-        }
-      });
-    };
-
     onMounted(() => {
-      getAppTypeList();
+      if (Object.keys(appStore.appTypeList).length == 0)
+        appStore.loadAppTypeList();
     });
 
-    return { handleCreateProject, ...toRefs(state) };
+    return { handleCreate, ...toRefs(state), appStore };
   },
 });
 </script>
