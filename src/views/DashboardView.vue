@@ -27,13 +27,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs } from "vue";
+import { defineComponent, onMounted } from "vue";
 import HeroSection from "@/components/HeroSection.vue";
 import HeroImage from "@/components/HeroImage.vue";
 import AddNewProjectComponent from "@/components/Projects/AddNewProjectComponent.vue";
 import ProjectListCard from "@/components/Projects/ProjectListCard.vue";
-import httpService from "@/service/httpService";
-import { notify } from "@kyvg/vue3-notification";
 import { projectStore } from "@/stores/projectStore";
 export default defineComponent({
   name: "HomeView",

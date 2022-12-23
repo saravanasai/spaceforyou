@@ -19,10 +19,7 @@ export const authStore = defineStore("auth", () => {
   };
 
   const checkAuthOnServerSide = () => {
-    console.log("called store");
-    
     if (!getCookie("token")) {
-      console.log("called server check");
       httpService
         .get("/auth/is-authenticated")
         .then((e: any) => {

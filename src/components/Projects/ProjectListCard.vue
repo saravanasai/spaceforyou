@@ -23,6 +23,16 @@
         </div>
       </div>
       <div class="flex items-center justify-end pt-2">
+        <template v-if="$props.appName === 'Contact Application'">
+          <a
+          target="_blank"
+            href="https://documenter.getpostman.com/view/16718822/2s8Z6u6Feq"
+            class="bg-gradient-to-r from-green-800 to-green-500 hover:from-green-900 hover:to-green-900 text-white font-bold py-1 px-2 mx-2 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+          >
+            Doc's
+          </a>
+        </template>
+       
         <button
           @click="handleDelete($props.id)"
           class="bg-gradient-to-r from-red-800 to-red-500 hover:from-red-900 hover:to-red-900 text-white font-bold py-1 px-2 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
@@ -36,9 +46,7 @@
 </template>
 
 <script lang="ts">
-import httpService from "@/service/httpService";
 import { projectStore } from "@/stores/projectStore";
-import { notify } from "@kyvg/vue3-notification";
 import { defineComponent } from "vue";
 
 export default defineComponent({
