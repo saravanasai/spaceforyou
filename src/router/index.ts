@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import DashboardView from "@/views/DashboardView.vue";
+import DocumentView from "@/views/DocumentView.vue";
 import { getCookie } from "@/service/cookieService";
 import { authStore } from "@/stores/authStore";
 
@@ -17,6 +18,12 @@ const router = createRouter({
       path: "/dashboard",
       name: "dashboard",
       component: DashboardView,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: "/application/docs",
+      name: "app-docs",
+      component: DocumentView,
       meta: { requiresAuth: true }
     }
   ],

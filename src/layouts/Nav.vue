@@ -1,37 +1,44 @@
 <template>
-  <div class="w-full container mx-auto">
-    <div class="w-full flex items-center justify-between">
-      <router-link
-        :to="{ name: 'home' }"
-        class="m-3 flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
-      >
-        Zero<span
-          class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500"
-          >Code</span
-        >
-      </router-link>
-
-      <div class="flex w-1/2 justify-end content-center">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <router-link class="navbar-brand" :to="{ name: 'home' }"
+      ><img class="img-fluid" src="images/logo.png" alt="godocs"
+    /></router-link>
+    <button
+      class="navbar-toggler border-0"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navigation"
+    >
+      <i class="ti-align-right h4 text-dark"></i>
+    </button>
+    <div class="collapse navbar-collapse text-center" id="navigation">
+      <ul class="navbar-nav mx-auto align-items-center">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="list.html">Inner Page</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="search.html">Search Page</a>
+        </li>
+      </ul>
+      <template v-if="isAuthenticated">
         <router-link
-          v-if="isAuthenticated"
           :to="{ name: 'dashboard' }"
-          class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-          type="button"
+          class="btn btn-sm btn-outline-primary ml-lg-4"
+          >Dashboard</router-link
         >
-          Dashboard
-        </router-link>
-
         <button
-          v-if="isAuthenticated"
           @click="handleLogout"
-          class="bg-gradient-to-r ml-2 from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
           type="button"
+          class="btn btn-sm btn-primary ml-lg-4"
         >
           Logout
         </button>
-      </div>
+      </template>
     </div>
-  </div>
+  </nav>
 </template>
 
 <script lang="ts">

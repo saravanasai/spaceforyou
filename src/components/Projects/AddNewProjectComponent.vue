@@ -1,46 +1,65 @@
 <template>
-  <form>
-    <div class="mb-4">
-      <label class="block text-blue-300 py-2 font-bold mb-2" for="emailaddress">
-        Create New Project
-      </label>
-      <input
-        class="shadow appearance-none border rounded w-full mb-2 p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-        id="project_name"
-        type="text"
-        v-model="projectName"
-        placeholder="my-todo-app"
-      />
-      <select
-        class="shadow appearance-none border mb-2 rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-        name="project_app_type"
-        id="project_app_type"
-        v-model="projectType"
-      >
-        <option value="">Please choose</option>
-        <template v-for="types in appStore.appTypeList" :key="types.id">
-          <option :value="types.id">{{ types.name }}</option>
-        </template>
-      </select>
-      <input
-        class="shadow appearance-none border rounded w-full mb-2 p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-        id="project_name"
-        type="text"
-        v-model="description"
-        placeholder="description"
-      />
-    </div>
+  <div class="col-lg-12 col-md-12 col-sm-12 mb-2">
+    <div class="card">
+      <div class="card-body">
+        <form class="search">
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="fname">Project Name</label>
+              <input
+                v-model="projectName"
+                type="text"
+                class="form-control"
+                id="project-name"
+                name="project_name"
+                placeholder="Your Project Name"
+                required
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="roject-description">Description</label>
+              <input
+                v-model="description"
+                type="text"
+                class="form-control"
+                id="project-description"
+                name="project_description"
+                placeholder="Eg: my first project"
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="application_type">Choose Application</label>
+              <select
+                id="application_type"
+                class="form-control custom-select"
+                name="application_type"
+                v-model="projectType"
+                required
+              >
+                <option disabled value="0">Choose Your application</option>
+                <template
+                  v-for="apptype in appStore.appTypeList"
+                  :key="apptype.id"
+                >
+                  <option :value="apptype.id">{{ apptype.name }}</option>
+                </template>
+              </select>
+            </div>
+          </div>
 
-    <div class="flex items-center justify-end pt-4">
-      <button
-        @click="handleCreate"
-        class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-        type="button"
-      >
-        Create
-      </button>
+          <div class="d-flex justify-content-end">
+            <button
+              @click="handleCreate"
+              type="button"
+              class="btn btn-sm btn-primary"
+            >
+              Create
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-  </form>
+  </div>
 </template>
 
 <script lang="ts">
