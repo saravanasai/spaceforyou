@@ -23,7 +23,7 @@
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-4 text-center d-lg-block d-none">
-          <img src="images/cta-illustration.jpg" class="img-fluid" alt="" />
+          <img :src="illustration" class="img-fluid" alt="" />
         </div>
         <div class="col-lg-8 text-lg-left text-center">
           <h2 class="mb-3">What is GoDoc's Api?</h2>
@@ -50,18 +50,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeMount, onMounted } from "vue";
-
-import { authStore } from "./stores/authStore";
-import { storeToRefs } from "pinia";
-import httpService from "./service/httpService";
-import { setCookie } from "./service/cookieService";
+import { defineComponent } from "vue";
+import illustration from "./assets/images/cta-illustration.jpg"
 import Header from "./layouts/Header.vue";
 import Footer from "./layouts/Footer.vue";
 export default defineComponent({
   setup() {
-    const store = authStore();
+
+    return {illustration}
   },
-  components: { Header, Footer },
+  components: { Header, Footer  },
 });
 </script>

@@ -18,7 +18,7 @@
           <router-link :to="{ name: 'home' }" class="navbar-brand">
             <img
               class="img-fluid"
-              src="images/logo.png"
+              :src="Logo"
               alt="ZeroCode Documentation"
             />
           </router-link>
@@ -57,9 +57,12 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-
+import Logo from "../assets/images/logo.png"
 export default defineComponent({
   name: "Footer",
-  setup() {},
+  setup() {
+
+    return {Logo}
+  },
 });
 </script>

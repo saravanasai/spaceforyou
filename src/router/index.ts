@@ -21,7 +21,7 @@ const router = createRouter({
       meta: { requiresAuth: true }
     },
     {
-      path: "/application/docs",
+      path: "/documentation",
       name: "app-docs",
       component: DocumentView,
       meta: { requiresAuth: true }

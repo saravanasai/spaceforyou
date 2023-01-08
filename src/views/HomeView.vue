@@ -11,14 +11,14 @@
     </template>
     </div>
     <div class="col-lg-4 d-lg-block d-none">
-      <img src="images/banner.jpg" alt="illustration" class="img-fluid" />
+      <img :src="BannerImage" alt="illustration" class="img-fluid" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted } from "vue";
-import HeroSection from "@/components/HeroSection.vue";
+import BannerImage from "../assets/images/banner.jpg"
 import { authStore } from "@/stores/authStore";
 import { storeToRefs } from "pinia";
 import httpService from "@/service/httpService";
@@ -26,7 +26,7 @@ import { setCookie } from "@/service/cookieService";
 import LoginRegisterFrom from "@/components/LoginRegisterFrom.vue";
 export default defineComponent({
   name: "HomeView",
-  components: { HeroSection,  LoginRegisterFrom },
+  components: {LoginRegisterFrom },
   setup() {
     const store = authStore();
 
@@ -47,7 +47,7 @@ export default defineComponent({
       });
     };
 
-    return { isAuthenticated };
+    return { isAuthenticated , BannerImage };
   },
 });
 </script>

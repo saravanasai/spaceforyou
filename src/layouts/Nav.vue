@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <router-link class="navbar-brand" :to="{ name: 'home' }"
-      ><img class="img-fluid" src="images/logo.png" alt="godocs"
+      ><img class="img-fluid" :src="Logo" alt="godocs"
     /></router-link>
     <button
       class="navbar-toggler border-0"
@@ -13,7 +13,7 @@
     </button>
     <div class="collapse navbar-collapse text-center" id="navigation">
       <ul class="navbar-nav mx-auto align-items-center">
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" href="index.html">Home</a>
         </li>
         <li class="nav-item">
@@ -21,7 +21,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="search.html">Search Page</a>
-        </li>
+        </li> -->
       </ul>
       <template v-if="isAuthenticated">
         <router-link
@@ -49,7 +49,7 @@ import { removeCookie } from "@/service/cookieService.js";
 import httpService from "@/service/httpService.js";
 import { useRouter } from "vue-router";
 import { notify } from "@kyvg/vue3-notification";
-
+import Logo from "../assets/images/logo.png";
 export default defineComponent({
   name: "Nav",
   setup() {
@@ -83,7 +83,7 @@ export default defineComponent({
         });
     };
 
-    return { isAuthenticated, handleLogout };
+    return { isAuthenticated, handleLogout , Logo };
   },
 });
 </script>
