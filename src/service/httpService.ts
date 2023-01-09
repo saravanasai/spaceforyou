@@ -3,7 +3,7 @@ import { getCookie } from "@/service/cookieService";
 
 const httpService = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_URL,
-  timeout: 1000,
+  timeout: 100000,
   headers: { Authorization: "Bearer " + getCookie("token") },
 });
 
