@@ -9,15 +9,19 @@ export const projectStore = defineStore("project", () => {
 
     const store = reactive({
         projectList: [] as ProjectDataInterface[],
+        isLoadingProjects : false as boolean,
+        isCreatingProject : false as boolean
     });
   
   
     // get project list 
     const loadProjectList = () => {
+      store.isLoadingProjects = true
         httpService
           .get("/projects")
           .then((e: any) => {
             store.projectList = e.data.data as ProjectDataInterface[];
+            store.isLoadingProjects = false
           })
           .catch((e) => {
             notify({
@@ -31,6 +35,7 @@ export const projectStore = defineStore("project", () => {
       //create project list 
       const handleCreateProject = async (data : ProjectRequestDataInterface) => {
 
+        store.isCreatingProject = true
         return httpService.post("/projects", data)
     
       };

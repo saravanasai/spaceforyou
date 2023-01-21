@@ -63,6 +63,12 @@ export default defineComponent({
     const { isAuthenticated } = storeToRefs(store);
 
     const handleLogout = () => {
+      notify({
+        title: "Logging out ....",
+        type: "info",
+        text: "Kindly wait you request is processing!",
+      });
+
       httpService
         .post("/auth/logout")
         .then((e: any) => {
@@ -83,7 +89,7 @@ export default defineComponent({
         });
     };
 
-    return { isAuthenticated, handleLogout , Logo };
+    return { isAuthenticated, handleLogout, Logo };
   },
 });
 </script>

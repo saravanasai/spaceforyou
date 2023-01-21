@@ -50,6 +50,7 @@
           <div class="d-flex justify-content-end">
             <button
               @click="handleCreate"
+              :disabled="store.isCreatingProject"
               type="button"
               class="btn btn-sm btn-primary"
             >
@@ -94,6 +95,7 @@ export default defineComponent({
       store
         .handleCreateProject(data)
         .then((e: any) => {
+          store.isCreatingProject = false;
           if (e.status === 201) {
             state.projectName = "";
             state.description = "";
@@ -107,9 +109,8 @@ export default defineComponent({
           }
         })
         .catch((e) => {
+          store.isCreatingProject = false;
           if (e.response.status === 422) {
-            console.log(e);
-
             notify({
               title: e.response.data.message,
               type: "warn",
@@ -124,7 +125,7 @@ export default defineComponent({
         appStore.loadAppTypeList();
     });
 
-    return { handleCreate, ...toRefs(state), appStore };
+    return { handleCreate, ...toRefs(state), appStore, store };
   },
 });
 </script>

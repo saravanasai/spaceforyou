@@ -14,13 +14,10 @@
         <p class="card-text mb-1">
           <strong>App Key :</strong> {{ $props.application_key }}
         </p>
-        <p class="card-text">
-          <strong>Created On :</strong> {{ $props.created_at }}
-        </p>
       </div>
       <div class="d-flex justify-content-end mb-3 mr-3">
         <router-link
-          :to="{ name: 'app-docs' }"
+          :to="{ name: 'app-docs'}"
           class="btn btn-sm btn-success ml-lg-4"
         >
           Doc's
@@ -35,49 +32,6 @@
       </div>
     </div>
   </div>
-  <!-- <div class="w-full md:w-full lg:w-full pl-5 pr-5 mb-1 lg:pl-2 lg:pr-2">
-    <div class="rounded-lg p-3 bg-purple-700 flex flex-col">
-      <div>
-        <h6 class="text-white text-1xl font-bold leading-none">
-          Project Name : {{ $props.name }}
-        </h6>
-        <span class="text-xs text-gray-400 leading-none"
-          >{{ $props.description }}.</span
-        >
-      </div>
-      <div class="flex items-center">
-        <div class="text-md text-white font-light">
-          <p>Application Name : {{ $props.appName }}</p>
-          <span class="text-xs text-gray-400 leading-none"
-            >{{ $props.appDescription }}.</span
-          >
-        </div>
-      </div>
-      <div class="flex items-center">
-        <div class="text-md text-white font-light bg-black-200">
-          Token : {{ $props.application_key }}
-        </div>
-      </div>
-      <div class="flex items-center justify-end pt-2">
-        <template v-if="$props.appName === 'Contact Application'">
-          <router-link
-            :to="{ name: 'app-docs', params: { type: 'contact' } }"
-            class="bg-gradient-to-r from-green-800 to-green-500 hover:from-green-900 hover:to-green-900 text-white font-bold py-1 px-2 mx-2 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-          >
-            Doc's
-          </router-link>
-        </template>
-
-        <button
-          @click="handleDelete($props.id)"
-          class="bg-gradient-to-r from-red-800 to-red-500 hover:from-red-900 hover:to-red-900 text-white font-bold py-1 px-2 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-          type="button"
-        >
-          Delete
-        </button>
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <script lang="ts">
@@ -92,6 +46,7 @@ export default defineComponent({
     application_key: String,
     created_at: String,
     appName: String,
+    apptype: Number,
     appDescription: String,
   },
   setup(props) {

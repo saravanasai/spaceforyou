@@ -6,6 +6,10 @@
     </div>
     <h5 class="section-title mt-3">Your Projects</h5>
     <div class="row">
+
+      <template v-if="store.isLoadingProjects">
+        <h5 class="section-title mt-3">Loading....</h5>
+      </template>
       <template v-for="project in store.projectsList" :key="project.id">
         <ProjectListCard
           :id="project.id"

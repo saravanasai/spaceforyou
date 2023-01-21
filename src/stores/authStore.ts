@@ -5,9 +5,10 @@ import httpService from "@/service/httpService";
 
 export const authStore = defineStore("auth", () => {
   const store = reactive({
-    email: "user@gmail.com",
-    password: "123456",
+    email: "",
+    password: "",
     isAuthenticated: false,
+    isProcessing : false ,
     userInfo: {} as userInfo,
     token: "",
   });
