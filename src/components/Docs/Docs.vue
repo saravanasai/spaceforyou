@@ -9,7 +9,7 @@
     <div class="row">
       <CodeBlock
         :icon="'ti-id-badge'"
-        :codeBlock="Params"
+        :codeBlock="contactParams"
         :title="'Params to pass'"
       />
       <CodeBlock

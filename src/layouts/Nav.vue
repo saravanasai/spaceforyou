@@ -29,6 +29,12 @@
           class="btn btn-sm btn-outline-primary ml-lg-4"
           >Dashboard</router-link
         >
+        <router-link
+          :to="{ name: 'profile-info' }"
+          class="btn btn-sm btn-outline-primary ml-lg-4"
+          >My Profile</router-link
+        >
+        
         <button
           @click="handleLogout"
           type="button"
@@ -43,6 +49,7 @@
 
 <script lang="ts">
 import { authStore } from "@/stores/authStore";
+import { projectStore } from "@/stores/projectStore";
 import { defineComponent } from "vue";
 import { storeToRefs } from "pinia";
 import { removeCookie } from "@/service/cookieService.js";
@@ -54,6 +61,7 @@ export default defineComponent({
   name: "Nav",
   setup() {
     const store = authStore();
+    const projectStoreInstance = projectStore();
     const router = useRouter();
 
     const pushToHomePage = () => {
@@ -73,6 +81,8 @@ export default defineComponent({
         .post("/auth/logout")
         .then((e: any) => {
           if (e.status === 200) {
+            projectStoreInstance.emptyProjectList();
+            store.resetUserInfo();
             removeCookie("token");
             store.isAuthenticated = false;
             notify({

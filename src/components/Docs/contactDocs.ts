@@ -1,6 +1,6 @@
 const baseUrl = import.meta.env.VITE_APP_CONTACT_APP_BASE_URL;
 
-const Params = `
+const contactParams = `
     
 name : required | string 
 phoneNumber : required | number 
@@ -93,5 +93,5 @@ export default {
     getSingleContact,
     updateContact,
     deleteContact,
-    Params,
+    contactParams,
 };

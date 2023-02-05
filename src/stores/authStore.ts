@@ -3,9 +3,11 @@ import { defineStore } from "pinia";
 import { getCookie, removeCookie, setCookie } from "@/service/cookieService";
 import httpService from "@/service/httpService";
 
+
 export const authStore = defineStore("auth", () => {
   const store = reactive({
     email: "",
+    name:"",
     password: "",
     isAuthenticated: false,
     isProcessing : false ,
@@ -15,9 +17,33 @@ export const authStore = defineStore("auth", () => {
 
   const setuserInfo = (info: userInfo) => {
     store.userInfo = info;
+    store.email = info.email;
+    store.name = info.name;
     store.isAuthenticated = true;
     localStorage.setItem("user", JSON.stringify(info));
   };
+
+  const resetUserInfo = () => {
+   
+    store.email = "";
+    store.name = "";
+ 
+  };
+  
+
+  const updateProfileInfo = () => {
+
+    store.isProcessing = true;
+    return httpService.put("/auth/profile", {name:store.name,email:store.email});
+  }
+
+
+
+  const changeProfilePassword = (data : userPasswordChangeData) => {
+
+    store.isProcessing = true;
+    return httpService.put("/auth/profile-password-update",data);
+  }
 
   const checkAuthOnServerSide = () => {
     if (!getCookie("token")) {
@@ -50,13 +76,23 @@ export const authStore = defineStore("auth", () => {
   return {
     ...toRefs(store),
     setuserInfo,
+    resetUserInfo,
     getAccessToken,
+    updateProfileInfo,
+    changeProfilePassword,
     checkAuthOnServerSide,
   };
 });
 
-interface userInfo {
+export interface userInfo {
   name: string;
   email: string;
   available_app_count: null | number;
+}
+
+export interface userPasswordChangeData {
+  oldPassword: string;
+  newPassword: string;
+  confrimPassword: string;
+  
 }

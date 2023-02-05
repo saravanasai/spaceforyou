@@ -17,6 +17,7 @@
           :description="project.description"
           :created_at="project.created_at"
           :app-description="project.app_info.description"
+          :app-type="project.app_info.id"
           :application_key="project.application_key"
           :app-name="project.app_info.name"
         />
